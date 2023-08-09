@@ -7,5 +7,8 @@ export default{
                 }
             )
         }
+    },
+    setPokemon : (state, payload) => {
+        state.pokemon = payload
     }
 }
