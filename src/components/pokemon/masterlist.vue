@@ -1,15 +1,22 @@
 <template>
     <div class="container">
         <div>
-            <b-table striped hover :items="items" :fields="fields">
+            <b-form-input v-model="searchPokemon" placeholder="Enter pokemon name"></b-form-input>
+            <b-table striped hover :items="items" :fields="fields" id="pokemonlist" :perpage="perPage">
                 <template #cell(image)="row">
                     <img :src="row.item.image" alt="Product Image" class="img-thumbnail">
                 </template>
 
                 <template #cell(button)="row">
-                    <b-button @click="handleButtonClick(row.item)" variant="primary">Click Me</b-button>
+                    <b-button @click="handleButtonClick(row.item)" variant="primary">Add as a favorite pokemon</b-button>
                 </template>
             </b-table>
+            <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="pokemonlist"
+            ></b-pagination>
         </div>
     </div>
 </template>
@@ -19,6 +26,9 @@
         name: 'MasterList',
         data() {
             return {
+                perPage: 20,
+                currentPage: 1,
+                searchPokemon: '',
                 fields: [
                     {
                         key: 'image',
