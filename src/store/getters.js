@@ -1,3 +1,3 @@
 export default{
-    getPokemons : state=>state.pokemon
+    getPokemons : state=>state.pokemons
 }

@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 const state = {
     pokemons : [],
-    favorite_pokemons : [],
+    favorite_pokemons : []
 }
 
 export default new Vuex.Store({
