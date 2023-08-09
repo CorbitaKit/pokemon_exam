@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import MasterList from '../components/pokemon/masterlist.vue'
+import FavoritePokemon from '../components/pokemon/favoritelist.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -13,6 +13,11 @@ const router = new VueRouter({
       name: 'MasterList',
       component: MasterList
     },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: FavoritePokemon
+    }
   ]
 })
 
