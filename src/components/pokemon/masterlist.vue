@@ -1,10 +1,9 @@
 <template>
     <div class="container">
         <div>
-            <b-form-input v-model="searchPokemon" placeholder="Enter pokemon name"></b-form-input>
-            <b-table striped hover :items="pokemons" :fields="fields" id="pokemonlist" :per-page="perPage">
+            <b-table striped hover :items="paginatedList" :fields="fields" id="pokemonlist" :per-page="perPage">
                 <template #cell(button)="button">
-                    <b-button @click="handleButtonClick(row.item)" variant="primary">Add as a favorite pokemon</b-button>
+                    <b-button v-if="! addedAsFavorite(button.item)" @click="addPokemonToFavorite(button.item)" variant="primary">Add as a favorite pokemon</b-button>
                 </template>
             </b-table>
             <b-pagination
@@ -45,14 +44,31 @@
 
         computed: {
             ...mapGetters({
-                pokemons: 'getPokemons'
-            })
+                pokemons: 'getPokemons',
+                favorites: 'getFavoritePokemons'
+            }),
+            paginatedList() {
+                const startIndex = (this.currentPage - 1) * this.perPage;
+                const endIndex = startIndex + this.perPage;
+                return this.pokemons.slice(startIndex, endIndex);
+            },
         },
         
         methods: {
             ...mapActions({
                 fetchPokemons: 'getAllPokemons',
-            })
+            }),
+
+            addPokemonToFavorite(pokemon) {
+                this.favorites.push({
+                    name: pokemon.name
+                })
+            },
+            
+            addedAsFavorite(pokemon) {
+                const isAlreadyAdded = this.favorites.some(favorite => favorite.name === pokemon.name)
+                return isAlreadyAdded
+            }
         }
     }
 </script>
