@@ -53,7 +53,9 @@
             }),
             getPokemon(pokemon) {
                 this.getPokemonDetails(pokemon.name)
+                this.$router.push('/details')
             }
+
         }
     }
 </script>
